@@ -1,0 +1,20 @@
+schema_version = "1.0.0"
+
+id = "export_curve_as_svg"
+version = "1.0.0"
+name = "Export Curve as SVG"
+tagline = "Export selected Bezier and Poly curves as SVG files"
+maintainer = "Gilberto Rodrigues"
+type = "add-on"
+tags = ["Import-Export"]
+blender_version_min = "5.0.0"
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+[build]
+paths_exclude_pattern = [
+  "__pycache__/",
+  "/.git/",
+  "/*.zip",
+]
