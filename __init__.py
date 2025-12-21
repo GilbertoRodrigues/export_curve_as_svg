@@ -28,8 +28,8 @@ def rgb_to_hex(color_tuple):
     except:
         return "#000000"
 
-def get_smart_material_color(obj):
-    """Attempts to retrieve the visual color of an object."""
+def get_material_color(obj):
+    """Retrieve the visual color of an object."""
     mat = obj.active_material
     
     if not mat and obj.data.materials:
@@ -47,13 +47,13 @@ def get_smart_material_color(obj):
     return mat.diffuse_color[:3]
 
 def resolve_color(obj, source_type, user_color):
-    """Determines the final Hex color string based on the user's selection."""
+    """Determines color based on the user's selection."""
     if source_type == 'CUSTOM':
         return rgb_to_hex(user_color)
     elif source_type == 'OBJECT':
         return rgb_to_hex(obj.color[:3])
     elif source_type == 'MATERIAL':
-        raw_color = get_smart_material_color(obj)
+        raw_color = get_material_color(obj)
         if raw_color:
             return rgb_to_hex(raw_color)
         else:
