@@ -6,6 +6,7 @@ name = "Export Curve as SVG"
 tagline = "Export selected Bezier and Poly curves as SVG files"
 maintainer = "Gilberto Rodrigues"
 type = "add-on"
+website = "https://github.com/GilbertoRodrigues/export_curve_as_svg"
 tags = ["Import-Export"]
 blender_version_min = "5.0.0"
 license = [
