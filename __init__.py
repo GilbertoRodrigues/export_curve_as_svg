@@ -3,7 +3,7 @@ import os
 import random
 from bpy_extras.io_utils import ExportHelper
 from bpy.props import StringProperty, FloatProperty, EnumProperty, FloatVectorProperty
-
+import mathutils
 # --- 1. Math & Color Helpers ---
 
 def linear_to_srgb_single(c):
@@ -155,8 +155,13 @@ def write_svg(context, filepath, props):
     svg_content.append(f'<g transform="scale({scale_factor}, {-scale_factor})">') 
     
     nurbs_encountered = False 
+    depsgraph = context.evaluated_depsgraph_get()
 
     for obj in selected_curves:
+        obj.update_from_editmode()
+        obj = obj.evaluated_get(depsgraph)
+
+        matrix_identity = mathutils.Matrix()
         matrix = obj.matrix_world
         safe_obj_name = obj.name.replace(" ", "_")
         
@@ -165,13 +170,20 @@ def write_svg(context, filepath, props):
         obj_fill_hex = resolve_color(obj, fill_source, fill_user_col)
         obj_stroke_hex = resolve_color(obj, stroke_source, stroke_user_col)
 
-        for i, spline in enumerate(obj.data.splines):
+        as_curve = obj.to_curve(depsgraph, apply_modifiers=True)
+        temp_curve = as_curve.copy()
+        temp_curve.transform(matrix, shape_keys=False)
+        
+        
+		
+
+        for i, spline in enumerate(temp_curve.splines):
             path_d = ""
             
             if spline.type == 'BEZIER':
-                path_d = get_bezier_path_d(spline, matrix, axis_mode)
+                path_d = get_bezier_path_d(spline, matrix_identity, axis_mode)
             elif spline.type == 'POLY':
-                path_d = get_poly_path_d(spline, matrix, axis_mode)
+                path_d = get_poly_path_d(spline, matrix_identity, axis_mode)
             elif spline.type == 'NURBS':
                 nurbs_encountered = True
                 continue 
@@ -200,6 +212,9 @@ def write_svg(context, filepath, props):
                 svg_content.append(
                     f'    <path id="{spline_id}" d="{path_d}" stroke="{final_stroke}" stroke-width="{stroke_width_val}" fill="{final_fill}" />'
                 )
+        temp_curve.user_clear()
+        bpy.data.curves.remove(temp_curve)
+        obj.to_curve_clear()
 
         svg_content.append('  </g>')
 
