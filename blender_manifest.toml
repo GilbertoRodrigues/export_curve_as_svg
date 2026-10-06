@@ -1,9 +1,9 @@
 schema_version = "1.0.0"
 
 id = "export_curve_as_svg"
-version = "1.0.0"
+version = "2.0.0"
 name = "Export Curve as SVG"
-tagline = "Export selected Bezier and Poly curves as SVG files"
+tagline = "Export curves and other geometry as SVG paths"
 maintainer = "Gilberto Rodrigues"
 type = "add-on"
 website = "https://github.com/GilbertoRodrigues/export_curve_as_svg"
@@ -13,9 +13,13 @@ license = [
   "SPDX:GPL-3.0-or-later",
 ]
 
+[permissions]
+files = "Export SVG files to a user-selected location"
+
 [build]
 paths_exclude_pattern = [
   "__pycache__/",
   "/.git/",
   "/*.zip",
+  "/icons/generate.py",
 ]

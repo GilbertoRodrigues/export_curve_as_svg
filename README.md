@@ -1,15 +1,13 @@
-# export_curve_as_svg
-An extension for Blender.
+This Blender extension adds Scalable Vector Graphics (.svg) exporter for curve objects with configurable view projections, grouping, page sizes, fills, and strokes. Non-curve types are also supported via automatic conversion to curve.
 
-This adds an exporter to Blender, for saving the selected Bezier and Poly curve objects as SVG (.svg). It supports exporting both 2D and 3D Bezier and Poly curve objects, with option to pick from multiple projection views (Top, Front, Side),
-    a scale slider export property, configurable vector fill (none, all, closed curves, filled 2D curves), fill colors (Custom, Object, Material, Random), Stroke width and stroke color (Custom, Object, Material, Random).
-    
-Limitations: The extension does not yet support NURBs, "Curves" Object, and Text Object, So convert them to Beziér curve before exporting. Other limitation is that this exporter ignores the Modifiers.
+Install intructions: https://docs.blender.org/manual/en/latest/editors/preferences/extensions.html 
 
 Usage after install:
-- Select curve objects
-- File > Export > Curve as SVG (.svg)
-- Configure export settings
-- Click Export SVG
+Select objects to export;
+File → Export → Curve as SVG (.svg);
+Configure export settings then click Export SVG.
 
-Install intructions: https://docs.blender.org/manual/en/latest/editors/preferences/extensions.html
+Please report any bugs you find on https://github.com/GilbertoRodrigues/export_curve_as_svg
+
+## License
+The extension is licensed under GNU GPL v3.0, or later and icons are CC0.
